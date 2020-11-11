@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 public interface Application {
 
     static ApplicationMenu start() throws InvalidStateException {
-        final Supplier<ApplicationContext> applicationContextSupplier = null; // todo
+        final Supplier<ApplicationContext> applicationContextSupplier = NassaContext::getInstance;
         final NassaContext nassaContext = new NassaContext();
 
         nassaContext.init();

@@ -6,11 +6,10 @@ public interface ApplicationMenu {
 
     ApplicationContext getApplicationContext();
 
-    default Object printAvailableOptions() {
+    default String printAvailableOptions() {
         return null;
     }
 
-    default Object handleUserInput(Object o) {
-        return null;
+    default void handleUserInput() {
     }
 }
