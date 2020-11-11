@@ -1,5 +1,6 @@
 package com.epam.jwd.core_final.context;
 
+import com.epam.jwd.core_final.domain.ApplicationProperties;
 import com.epam.jwd.core_final.domain.BaseEntity;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 
@@ -11,4 +12,5 @@ public interface ApplicationContext {
 
     void init() throws InvalidStateException;
 
+    ApplicationProperties getApplicationProperties();
 }
