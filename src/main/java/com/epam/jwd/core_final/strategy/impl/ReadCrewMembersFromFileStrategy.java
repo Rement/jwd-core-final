@@ -3,6 +3,7 @@ package com.epam.jwd.core_final.strategy.impl;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Rank;
 import com.epam.jwd.core_final.domain.Role;
+import com.epam.jwd.core_final.exception.CreateCrewMemberException;
 import com.epam.jwd.core_final.factory.impl.CrewMemberFactory;
 import com.epam.jwd.core_final.strategy.ReadFromFileStrategy;
 
@@ -36,6 +37,12 @@ public class ReadCrewMembersFromFileStrategy implements ReadFromFileStrategy {
             if (!tmpMap.containsKey(name)) {
                 crewMembers.add(crewMemberFactory.create(id, role, name, rank));
                 tmpMap.put(name, null);
+            } else {
+                try {
+                    throw new CreateCrewMemberException("Member with name " + name + " already exists!");
+                } catch (CreateCrewMemberException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

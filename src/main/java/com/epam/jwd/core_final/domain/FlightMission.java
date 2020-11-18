@@ -26,7 +26,8 @@ public class FlightMission extends AbstractBaseEntity {
     private MissionResult missionResult;
     static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(ApplicationProperties.DATE_TIME_FORMAT);
 
-    public FlightMission(String missionName, LocalDateTime startOfMission, LocalDateTime endOfMission, Long distance) {
+    public FlightMission(Long id,String missionName, LocalDateTime startOfMission, LocalDateTime endOfMission, Long distance) {
+        this.id = id;
         this.missionName = missionName;
         this.startOfMission = startOfMission;
         this.endOfMission = endOfMission;

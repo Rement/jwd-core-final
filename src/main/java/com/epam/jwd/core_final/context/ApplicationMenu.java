@@ -1,5 +1,9 @@
 package com.epam.jwd.core_final.context;
 
+import com.epam.jwd.core_final.exception.InvalidStateException;
+
+import java.io.IOException;
+
 // todo replace Object with your own types
 @FunctionalInterface
 public interface ApplicationMenu {
@@ -10,6 +14,6 @@ public interface ApplicationMenu {
         return null;
     }
 
-    default void handleUserInput() {
+    default void handleUserInput() throws IOException, InvalidStateException {
     }
 }

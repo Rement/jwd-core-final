@@ -14,8 +14,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SpaceshipServiceImpl implements SpaceshipService {
-
+    private static SpaceshipServiceImpl instance;
     Collection<Spaceship> spaceships = NassaContext.getInstance().retrieveBaseEntityList(Spaceship.class);
+
+    public static SpaceshipServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new SpaceshipServiceImpl();
+            return instance;
+        }
+        return null;
+    }
 
     @Override
     public Collection<Spaceship> findAllSpaceships() {
@@ -28,13 +36,19 @@ public class SpaceshipServiceImpl implements SpaceshipService {
     }
 
     @Override
-    public void findSpaceshipByCriteria(SpaceshipCriteria criteria) {
-        Optional.of(spaceships.stream().filter(s -> s.getName().equals(criteria.getName()))).ifPresent(spaceship -> System.out.println(spaceship.findAny().toString()));
+    public Optional<Spaceship> findSpaceshipByCriteria(SpaceshipCriteria criteria) {
+        return spaceships.stream().filter(s -> s.getName().equals(criteria.getName())).findFirst();
     }
 
     @Override
     public Spaceship updateSpaceshipDetails(Spaceship spaceship) {
-        return null;
+        Optional<Spaceship> newShip = spaceships.stream().filter(spaceship1 -> spaceship1.getName().equals(spaceship.getName()))
+                .findFirst();
+        if (newShip.isPresent()) {
+            spaceships.remove(newShip.get());
+            spaceships.add(spaceship);
+        }
+        return spaceship;
     }
 
     @Override

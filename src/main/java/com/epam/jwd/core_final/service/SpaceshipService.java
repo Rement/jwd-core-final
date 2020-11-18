@@ -8,6 +8,7 @@ import com.epam.jwd.core_final.strategy.impl.ReadSpaceshipsFromFileStrategy;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * All its implementations should be a singleton
@@ -16,12 +17,11 @@ import java.util.List;
 public interface SpaceshipService {
 
     Collection<Spaceship> findAllSpaceships();
-//TODO интересуюсь по поводу входного значения
 //    List<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria);
 
     List<Spaceship> findAllSpaceshipsByCriteria(SpaceshipCriteria criteria);
 
-    void findSpaceshipByCriteria(SpaceshipCriteria criteria);
+    Optional<Spaceship> findSpaceshipByCriteria(SpaceshipCriteria criteria);
 
     Spaceship updateSpaceshipDetails(Spaceship spaceship);
 

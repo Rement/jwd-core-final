@@ -2,6 +2,7 @@ package com.epam.jwd.core_final.strategy.impl;
 
 import com.epam.jwd.core_final.domain.Role;
 import com.epam.jwd.core_final.domain.Spaceship;
+import com.epam.jwd.core_final.exception.CreateSpaceshipException;
 import com.epam.jwd.core_final.factory.impl.SpaceshipFactory;
 import com.epam.jwd.core_final.strategy.ReadFromFileStrategy;
 
@@ -40,6 +41,12 @@ public class ReadSpaceshipsFromFileStrategy implements ReadFromFileStrategy {
             if (!tmpMap.containsKey(name)) {
                 spaceships.add(spaceshipFactory.create(++id, name, distance, crewMembers));
                 tmpMap.put(name, null);
+            } else {
+                try {
+                    throw new CreateSpaceshipException("Spaceship with name " + name + " already exists!");
+                } catch (CreateSpaceshipException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

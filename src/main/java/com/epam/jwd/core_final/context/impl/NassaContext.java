@@ -6,6 +6,8 @@ import com.epam.jwd.core_final.domain.BaseEntity;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.Spaceship;
+import com.epam.jwd.core_final.exception.CreateCrewMemberException;
+import com.epam.jwd.core_final.exception.CreateSpaceshipException;
 import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.service.impl.CrewServiceImpl;
 import com.epam.jwd.core_final.service.impl.SpaceshipServiceImpl;
@@ -58,12 +60,20 @@ public class NassaContext implements ApplicationContext {
         ReadCrewMembersFromFileStrategy crewStrategy = new ReadCrewMembersFromFileStrategy();
         ReadSpaceshipsFromFileStrategy spaceshipsStrategy = new ReadSpaceshipsFromFileStrategy();
         try {
-            spaceshipsStrategy.readFromFile(ApplicationProperties.MAIN_PATH + ApplicationProperties.SPACESHIPS_FILE_NAME);
-            crewStrategy.readFromFile(ApplicationProperties.MAIN_PATH + ApplicationProperties.CREW_FILE_NAME);
+            spaceshipsStrategy.readFromFile(ApplicationProperties.MAIN_PATH + ApplicationProperties.INPUT_ROOT_DIR + ApplicationProperties.SPACESHIPS_FILE_NAME);
+            crewStrategy.readFromFile(ApplicationProperties.MAIN_PATH + ApplicationProperties.INPUT_ROOT_DIR + ApplicationProperties.CREW_FILE_NAME);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        spaceships.addAll(spaceshipService.createSpaceship(spaceshipsStrategy));
-        crewMembers.addAll(crewService.createCrewMember(crewStrategy));
+        try {
+            spaceships.addAll(spaceshipService.createSpaceship(spaceshipsStrategy));
+        } catch (CreateSpaceshipException e) {
+            e.printStackTrace();
+        }
+        try {
+            crewMembers.addAll(crewService.createCrewMember(crewStrategy));
+        } catch (CreateCrewMemberException e) {
+            e.printStackTrace();
+        }
     }
 }
