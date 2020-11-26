@@ -1,0 +1,51 @@
+drop schema spaceport;
+create schema if not exists spaceport;
+create table if not exists spaceport.flight_mission
+(
+    mission_id        INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    mission_name      VARCHAR(20)     NOT NULL,
+    flight_distance   BIGINT          NOT NULL CHECK (flight_distance > 0 ),
+    start_of_mission  DATETIME        NOT NULL DEFAULT NOW(),
+    end_of_mission    DATETIME        NOT NULL,
+    result_of_mission ENUM ('CANCELLED','FAILED','PLANNED','IN_PROGRESS','COMPLETED')
+);
+create table if not exists spaceport.spaceship
+(
+    spaceship_id              INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    spaceship_name            VARCHAR(20)     NOT NULL UNIQUE,
+    flight_distance           BIGINT          NOT NULL CHECK ( flight_distance > 0 ),
+    is_ready_for_next_mission BOOL DEFAULT TRUE
+);
+create table if not exists spaceport.crew_member
+(
+    member_id                 INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    member_name               VARCHAR(20)     NOT NULL UNIQUE,
+    role_id                   INT CHECK ( role_id <= 4 AND role_id > 0),
+    rank_id                   INT CHECK ( rank_id <= 4 AND rank_id > 0),
+    is_ready_for_next_mission BOOL DEFAULT TRUE
+);
+create table if not exists spaceport.spaceship_crew_members
+(
+    spaceship_id        INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    spaceship_name      VARCHAR(20)     NOT NULL UNIQUE,
+    role_id             INT CHECK ( role_id <= 4 AND role_id > 0),
+    quantity_of_members INT             NOT NULL CHECK ( quantity_of_members > 0 ),
+    FOREIGN KEY (spaceship_id) references spaceship (spaceship_id)
+);
+CREATE TABLE IF NOT EXISTS spaceport.flight_mission_crew_members
+(
+    flight_mission_id INT NOT NULL UNIQUE,
+    crew_member_id    INT NOT NULL UNIQUE,
+    PRIMARY KEY (flight_mission_id, crew_member_id),
+    FOREIGN KEY (flight_mission_id) REFERENCES spaceport.flight_mission (mission_id),
+    FOREIGN KEY (crew_member_id) REFERENCES spaceport.crew_member (member_id)
+);
+
+CREATE TABLE IF NOT EXISTS spaceport.flight_mission_spaceship
+(
+    flight_mission_id INT NOT NULL UNIQUE,
+    spaceship_id      INT NOT NULL UNIQUE,
+    PRIMARY KEY (flight_mission_id, spaceship_id),
+    FOREIGN KEY (flight_mission_id) REFERENCES spaceport.flight_mission (mission_id),
+    FOREIGN KEY (spaceship_id) REFERENCES spaceport.spaceship (spaceship_id)
+);
