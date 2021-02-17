@@ -1,17 +1,20 @@
 package com.epam.jwd.core_final.context;
 
-import com.epam.jwd.core_final.context.impl.NassaContext;
+import com.epam.jwd.core_final.context.impl.DefaultMenu;
 import com.epam.jwd.core_final.exception.InvalidStateException;
+import com.epam.jwd.core_final.scheduledjob.FileRefreshJob;
 
-import java.util.function.Supplier;
+import static com.epam.jwd.core_final.util.InputUtil.readInt;
 
 public interface Application {
 
-    static ApplicationMenu start() throws InvalidStateException {
-        final Supplier<ApplicationContext> applicationContextSupplier = null; // todo
-        final NassaContext nassaContext = new NassaContext();
-
-        nassaContext.init();
-        return applicationContextSupplier::get;
+    static void start() throws InvalidStateException {
+        ApplicationMenu menu = new DefaultMenu();
+        FileRefreshJob.getInstance().perform();
+        while (true) {
+            menu.handleUserInput(
+                    readInt(menu.printAvailableOptions() + "\nEnter option: ")
+            );
+        }
     }
 }
