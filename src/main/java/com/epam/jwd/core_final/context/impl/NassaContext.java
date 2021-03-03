@@ -1,10 +1,17 @@
 package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
+//<<<<<<< HEAD
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 import com.epam.jwd.core_final.domain.*;
+//=======
+import com.epam.jwd.core_final.domain.BaseEntity;
+import com.epam.jwd.core_final.domain.CrewMember;
+import com.epam.jwd.core_final.domain.Planet;
+import com.epam.jwd.core_final.domain.Spaceship;
+//>>>>>>> f660db45b7e6aa57495c014461025917330f9e1f
 import com.epam.jwd.core_final.exception.InvalidStateException;
 import com.epam.jwd.core_final.util.PropertyReaderUtil;
 
@@ -22,6 +29,7 @@ public class NassaContext implements ApplicationContext {
     // no getters/setters for them
     private Collection<CrewMember> crewMembers = new ArrayList<>();
     private Collection<Spaceship> spaceships = new ArrayList<>();
+    private Collection<Planet> planetMap = new ArrayList<>();
 
     @Override
     public <T extends BaseEntity> Collection<T> retrieveBaseEntityList(Class<T> tClass) {
