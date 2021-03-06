@@ -43,6 +43,6 @@ public enum Rank implements BaseEntity {
             case 4:
                 return CAPTAIN;
         }
-        return null;
+        return TRAINEE;
     }
 }

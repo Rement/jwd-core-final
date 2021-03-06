@@ -24,11 +24,13 @@ public class ApplicationProperties {
     private String crewFileName;
     private String missionsFileName;
     private String spaceshipsFileName;
+    private String spaceMapFileName;
     private Integer fileRefreshRate;
     private String dateTimeFormat;
     private String rootDir = "src/main/resources/";
     private String indexForCrewFileName= ";";
-    private String indexForSpaceshipFileName = "\n";
+    private String indexForSpaceshipFile = "\n";
+    private String indexForSpaceMapFileName = " ";
     PropertyReaderUtil propertyReaderUtil = PropertyReaderUtil.getInstance();
     Properties properties = propertyReaderUtil.getProperties();
 
@@ -38,6 +40,7 @@ public class ApplicationProperties {
     }
 
     public String getOutputRootDir() {
+        outputRootDir=properties.getProperty("outputRootDir");
         return outputRootDir;
     }
 
@@ -53,6 +56,11 @@ public class ApplicationProperties {
     public String getSpaceshipsFileName() {
         spaceshipsFileName = properties.getProperty("spaceshipsFileName");
         return spaceshipsFileName;
+    }
+
+    public String getSpaceMapFileName(){
+        spaceMapFileName=properties.getProperty("spaceMapFileName");
+        return spaceMapFileName;
     }
 
     public Integer getFileRefreshRate() {
@@ -72,6 +80,8 @@ public class ApplicationProperties {
     }
 
     public String getIndexForSpaceshipFileName() {
-        return indexForSpaceshipFileName;
+        return indexForSpaceshipFile;
     }
+
+    public String getIndexForSpaceMapFileName(){return indexForSpaceMapFileName;}
 }

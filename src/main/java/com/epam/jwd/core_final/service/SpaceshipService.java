@@ -18,10 +18,7 @@ public interface SpaceshipService {
 
     Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria);
 
-    Spaceship updateSpaceshipDetails(Spaceship spaceship);
-
-    // todo create custom exception for case, when spaceship is not able to be assigned
-    void assignSpaceshipOnMission(Spaceship crewMember) throws RuntimeException;
+    Spaceship deleteSpaceship(Spaceship spaceship);
 
     // todo create custom exception for case, when crewMember is not able to be created (for example - duplicate.
     // spaceship unique criteria - only name!

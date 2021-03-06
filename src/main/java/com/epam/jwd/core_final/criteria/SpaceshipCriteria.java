@@ -24,7 +24,6 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
         private Long flightDistance;
         private Boolean isReadyForNextMissions;
 
-
         public Builder() {
         }
 
