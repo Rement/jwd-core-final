@@ -1,0 +1,12 @@
+мар. 18, 2021 4:09:12 AM com.epam.jwd.core_final.Main main
+INFO: initialization was successful
+мар. 18, 2021 4:09:12 AM com.epam.jwd.core_final.Main$1 run
+INFO: updating the cache number 1
+мар. 18, 2021 4:09:17 AM com.epam.jwd.core_final.Main$1 run
+INFO: updating the cache number 2
+мар. 18, 2021 4:09:22 AM com.epam.jwd.core_final.Main$1 run
+INFO: updating the cache number 3
+мар. 18, 2021 4:19:22 AM com.epam.jwd.core_final.Main main
+INFO: initialization was successful
+мар. 18, 2021 4:19:22 AM com.epam.jwd.core_final.Main$1 run
+INFO: updating the cache number 1

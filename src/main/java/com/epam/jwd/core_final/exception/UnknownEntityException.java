@@ -19,6 +19,7 @@ public class UnknownEntityException extends RuntimeException {
 
     @Override
     public String getMessage() {
+        System.out.println("there is no such entity. check the input data " + entityName);
         // todo
         // you should use entityName, args (if necessary)
         return null;
