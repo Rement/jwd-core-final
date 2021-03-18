@@ -5,15 +5,9 @@ import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 import com.epam.jwd.core_final.domain.*;
 import com.epam.jwd.core_final.factory.EntityFactory;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class FlightMissionFactory implements EntityFactory<FlightMission> {
     private FlightMission flightMission = null;
-    private Spaceship spaceship = null;
+    private FlightMission enteredFightMission;
     private FlightMissionCriteria.Builder flightMissionCriteria = FlightMissionCriteria.newBuilder();
     private static FlightMissionFactory instance;
 
@@ -31,24 +25,24 @@ public class FlightMissionFactory implements EntityFactory<FlightMission> {
 
     @Override
     public FlightMission create(Object... args) {
-        Map<Role, Short> crew = new HashMap<>();
-        crew.put(Role.COMMANDER, (short) 2);
-        spaceship = spaceshipCriteria
-                .setCrew(crew)
-                .setFlightDistance(23L)
-                .setReadyForNextMission(true)
-                .setName("ppppp")
-                .build();
-        List<CrewMember> assignedCrew = new ArrayList<>();
-        assignedCrew.add(new CrewMember());
+        for (Object s : args) {
+            try {
+                Class n = s.getClass();
+                if (n.equals(FlightMission.class)) {
+                    enteredFightMission = (FlightMission) s;
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
         flightMission = flightMissionCriteria
-                .setMissionsName("ssss")
-                .setStartDate(LocalDate.of(1914, 7, 28))
-                .setEndDate(LocalDate.of(1984, 03, 23))
-                .setDistance(1223213L)
-                .setSpaceship(spaceship)
-                .setCrewList(assignedCrew)
-                .setMissionResult(MissionResult.FAILED)
+                .setStartDate(enteredFightMission.getStartDate())
+                .setEndDate(enteredFightMission.getEndDate())
+                .setDistance(enteredFightMission.getDistance())
+                .setSpaceship(enteredFightMission.getAssignedSpaceShift())
+                .setCrewList(enteredFightMission.getAssignedCrew())
+                .setMissionResult(enteredFightMission.getMissionResult())
+                .setName(enteredFightMission.getName())
                 .build();
         return flightMission;
     }

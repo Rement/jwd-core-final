@@ -1,6 +1,8 @@
 package com.epam.jwd.core_final.domain;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
  * to {@link Planet}
  */
 public class FlightMission extends AbstractBaseEntity {
-    private String missionsName;
+    private ApplicationProperties applicationProperties = new ApplicationProperties();
     private LocalDate startDate;
     private LocalDate endDate;
     private Long distance;
@@ -28,14 +30,6 @@ public class FlightMission extends AbstractBaseEntity {
     private Planet toPlanet;
     private Long id = super.getId();
     private String name = super.getName();
-
-    public String getMissionsName() {
-        return missionsName;
-    }
-
-    public void setMissionsName(String missionsName) {
-        this.missionsName = missionsName;
-    }
 
     public LocalDate getStartDate() {
         return startDate;
@@ -122,7 +116,6 @@ public class FlightMission extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "FlightMission{" +
-                "missionsName='" + missionsName + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", distance=" + distance +

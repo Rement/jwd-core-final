@@ -16,9 +16,14 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
         super(builder);
     }
 
+    public SpaceshipCriteria() {
+
+    }
+
     public static SpaceshipCriteria.Builder newBuilder() {
         return new SpaceshipCriteria.Builder();
     }
+
     public static final class Builder extends Criteria.Builder<Spaceship> {
         private Map<Role, Short> crew;
         private Long flightDistance;
@@ -52,5 +57,21 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
             return spaceship;
         }
 
+    }
+
+    public Long getFlightDistance() {
+        return flightDistance;
+    }
+
+    public void setFlightDistance(Long flightDistance) {
+        this.flightDistance = flightDistance;
+    }
+
+    public Boolean getReadyForNextMissions() {
+        return isReadyForNextMissions;
+    }
+
+    public void setReadyForNextMissions(Boolean readyForNextMissions) {
+        isReadyForNextMissions = readyForNextMissions;
     }
 }

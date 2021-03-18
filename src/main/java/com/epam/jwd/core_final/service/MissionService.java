@@ -25,4 +25,6 @@ public interface MissionService {
 
     // todo create custom exception for case, when spaceship is not able to be assigned
     void assignSpaceshipOnMission(Spaceship spaceship) throws RuntimeException;
+
+    void writeMissionToJsonFile(FlightMission flightMission);
 }

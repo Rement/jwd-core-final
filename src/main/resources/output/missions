@@ -1,0 +1,68 @@
+{
+  "id" : 1,
+  "name" : "we",
+  "startDate" : {
+    "year" : 2000,
+    "month" : "MARCH",
+    "monthValue" : 3,
+    "dayOfMonth" : 4,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    },
+    "era" : "CE",
+    "dayOfWeek" : "SATURDAY",
+    "leapYear" : true,
+    "dayOfYear" : 64
+  },
+  "endDate" : {
+    "year" : 2000,
+    "month" : "FEBRUARY",
+    "monthValue" : 2,
+    "dayOfMonth" : 3,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    },
+    "era" : "CE",
+    "dayOfWeek" : "THURSDAY",
+    "leapYear" : true,
+    "dayOfYear" : 34
+  },
+  "distance" : null,
+  "assignedSpaceShift" : {
+    "id" : 1,
+    "name" : "",
+    "crew" : null,
+    "flightDistance" : null,
+    "readyForNextMissions" : null
+  },
+  "assignedCrew" : [ {
+    "id" : 1,
+    "name" : "Wolf",
+    "role" : null,
+    "rank" : null,
+    "readyForNextMissions" : null
+  }, {
+    "id" : 2,
+    "name" : "rt",
+    "role" : null,
+    "rank" : null,
+    "readyForNextMissions" : null
+  }, {
+    "id" : 3,
+    "name" : "tr",
+    "role" : null,
+    "rank" : null,
+    "readyForNextMissions" : null
+  }, {
+    "id" : 4,
+    "name" : "rt",
+    "role" : null,
+    "rank" : null,
+    "readyForNextMissions" : null
+  } ],
+  "missionResult" : "PLANNED",
+  "fromPlanet" : null,
+  "toPlanet" : null
+}

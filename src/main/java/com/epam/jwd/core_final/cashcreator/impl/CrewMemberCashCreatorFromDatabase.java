@@ -1,6 +1,6 @@
 package com.epam.jwd.core_final.cashcreator.impl;
 
-import com.epam.jwd.core_final.cashcreator.BaseEntityCollectionCreatorFromFile;
+import com.epam.jwd.core_final.cashcreator.BaseEntityCashCreatorFromDatabase;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Rank;
@@ -10,24 +10,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CrewMemberCollectionCreatorFromFile implements BaseEntityCollectionCreatorFromFile {
+public class CrewMemberCashCreatorFromDatabase implements BaseEntityCashCreatorFromDatabase {
     private CrewMember crewMember = null;
-    private Collection<CrewMember> crewMembers = new ArrayList<>();
     private CrewMemberCriteria.Builder crewMemberCriteria = CrewMemberCriteria.newBuilder();
-    private static CrewMemberCollectionCreatorFromFile instance;
+    private static CrewMemberCashCreatorFromDatabase instance;
 
-    private CrewMemberCollectionCreatorFromFile() {
+    private CrewMemberCashCreatorFromDatabase() {
     }
 
-    public static CrewMemberCollectionCreatorFromFile getInstance() {
+    public static CrewMemberCashCreatorFromDatabase getInstance() {
         if (instance == null) {
-            instance = new CrewMemberCollectionCreatorFromFile();
+            instance = new CrewMemberCashCreatorFromDatabase();
         }
         return instance;
     }
 
     @Override
-    public Collection<CrewMember> createFromFile(  List<String> stringStreamFromFile ) {
+    public Collection<CrewMember> createCashFromDatabase(List<String> stringStreamFromFile ) {
+        Collection<CrewMember> crewMembers = new ArrayList<>();
         for (String s : stringStreamFromFile) {
         String[] stringsForObject = s.split(",");
         if (!stringsForObject[0].equals("role")) {

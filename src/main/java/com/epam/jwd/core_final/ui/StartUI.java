@@ -3,13 +3,24 @@ package com.epam.jwd.core_final.ui;
 import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.context.ApplicationMenu;
 import com.epam.jwd.core_final.ui.crewMember.CrewMemberStartUI;
+import com.epam.jwd.core_final.ui.flightMission.FlightMissionStartUI;
+import com.epam.jwd.core_final.ui.spaceMap.SpaceMapStartUI;
+import com.epam.jwd.core_final.ui.spaceship.SpaceshipStartUI;
 
 import java.util.Scanner;
 
-public class StartUI implements ApplicationMenu {
+public class StartUI extends Thread implements ApplicationMenu {
     public String ANSI_RESET = "\u001B[0m";
     public String ANSI_RED = "\u001B[31m";
     public String ANSI_GREEN = "\u001B[32m";
+    private Object object;
+
+    @Override
+    public void run() {
+        super.run();
+        printAvailableOptions();
+        handleUserInput(object);
+    }
 
     @Override
     public ApplicationContext getApplicationContext() {
@@ -36,9 +47,9 @@ public class StartUI implements ApplicationMenu {
                 Object intFromConsole = scanner.nextInt();
                 switch ((int) intFromConsole) {
                     case 1 -> o1 = CrewMemberStartUI.getInstance();
-                    case 2 -> o1 = new SpaceshipUI();
-                    case 3 -> o1 = new SpaceMapUI();
-                    case 4 -> o1 = new FlightMissionUI();
+                    case 2 -> o1 = SpaceshipStartUI.getInstance();
+                    case 3 -> o1 = SpaceMapStartUI.getInstance();
+                    case 4 -> o1 = new FlightMissionStartUI();
                     default -> o1 = null;
                 }
             }

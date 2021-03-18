@@ -1,6 +1,6 @@
 package com.epam.jwd.core_final.cashcreator.impl;
 
-import com.epam.jwd.core_final.cashcreator.BaseEntityCollectionCreatorFromFile;
+import com.epam.jwd.core_final.cashcreator.BaseEntityCashCreatorFromDatabase;
 import com.epam.jwd.core_final.criteria.PlanetCriteria;
 import com.epam.jwd.core_final.domain.AbstractBaseEntity;
 import com.epam.jwd.core_final.domain.Planet;
@@ -9,22 +9,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PlanetCollectionCreatorFromFile implements BaseEntityCollectionCreatorFromFile {
+public class PlanetCashCreatorFromDatabase implements BaseEntityCashCreatorFromDatabase {
     private Planet planet = null;
-    private Collection<Planet> planetMap = new ArrayList<>();
-    private static PlanetCollectionCreatorFromFile instance;
+    private static PlanetCashCreatorFromDatabase instance;
 
-    private PlanetCollectionCreatorFromFile() {
+    private PlanetCashCreatorFromDatabase() {
     }
 
-    public static PlanetCollectionCreatorFromFile getInstance() {
+    public static PlanetCashCreatorFromDatabase getInstance() {
         if (instance == null) {
-            instance = new PlanetCollectionCreatorFromFile();
+            instance = new PlanetCashCreatorFromDatabase();
         }
         return instance;
     }
+
     @Override
-    public Collection<? extends AbstractBaseEntity> createFromFile(List<String> stringStreamFromFile) {
+    public Collection<? extends AbstractBaseEntity> createCashFromDatabase(List<String> stringStreamFromFile) {
+        Collection<Planet> planetMap = new ArrayList<>();
         PlanetCriteria.Builder planetCriteria = PlanetCriteria.newBuilder();
         int matrixWidth = stringStreamFromFile.get(0).split(",").length;
         int matrixHeight = stringStreamFromFile.size();

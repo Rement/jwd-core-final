@@ -17,6 +17,9 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
         super(builder);
     }
 
+    public CrewMemberCriteria() {
+    }
+
     public static Builder newBuilder() {
         return new CrewMemberCriteria.Builder();
     }
@@ -54,6 +57,29 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
             crewMember.setReadyForNextMissions(isReadyForNextMissions);
             return crewMember;
         }
+    }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public Boolean getReadyForNextMissions() {
+        return isReadyForNextMissions;
+    }
+
+    public void setReadyForNextMissions(Boolean readyForNextMissions) {
+        isReadyForNextMissions = readyForNextMissions;
     }
 }

@@ -1,6 +1,6 @@
 package com.epam.jwd.core_final.cashcreator.impl;
 
-import com.epam.jwd.core_final.cashcreator.BaseEntityCollectionCreatorFromFile;
+import com.epam.jwd.core_final.cashcreator.BaseEntityCashCreatorFromDatabase;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 import com.epam.jwd.core_final.domain.AbstractBaseEntity;
 import com.epam.jwd.core_final.domain.Role;
@@ -8,24 +8,24 @@ import com.epam.jwd.core_final.domain.Spaceship;
 
 import java.util.*;
 
-public class SpaceShipCollectionCreatorFromFile implements BaseEntityCollectionCreatorFromFile {
+public class SpaceShipCashCreatorFromDatabase implements BaseEntityCashCreatorFromDatabase {
     private Spaceship spaceship = null;
-    private Collection<Spaceship> spaceships = new ArrayList<>();
-    private static SpaceShipCollectionCreatorFromFile instance;
+    private static SpaceShipCashCreatorFromDatabase instance;
     private SpaceshipCriteria.Builder spaceshipCriteria = SpaceshipCriteria.newBuilder();
 
-    private SpaceShipCollectionCreatorFromFile() {
+    private SpaceShipCashCreatorFromDatabase() {
     }
 
-    public static SpaceShipCollectionCreatorFromFile getInstance() {
+    public static SpaceShipCashCreatorFromDatabase getInstance() {
         if (instance == null) {
-            instance = new SpaceShipCollectionCreatorFromFile();
+            instance = new SpaceShipCashCreatorFromDatabase();
         }
         return instance;
     }
 
     @Override
-    public Collection<? extends AbstractBaseEntity> createFromFile(List<String> stringStreamFromFile) {
+    public Collection<? extends AbstractBaseEntity> createCashFromDatabase(List<String> stringStreamFromFile) {
+        Collection<Spaceship> spaceships = new ArrayList<>();
         for (String s : stringStreamFromFile) {
             if (s.length() > 5) {
                 String[] stringsForObject = s.split(";");

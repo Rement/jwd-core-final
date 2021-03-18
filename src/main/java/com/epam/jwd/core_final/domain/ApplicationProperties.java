@@ -2,6 +2,10 @@ package com.epam.jwd.core_final.domain;
 
 import com.epam.jwd.core_final.util.PropertyReaderUtil;
 
+import java.text.Format;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Properties;
 
 /**
@@ -28,9 +32,9 @@ public class ApplicationProperties {
     private Integer fileRefreshRate;
     private String dateTimeFormat;
     private String rootDir = "src/main/resources/";
-    private String indexForCrewFileName= ";";
-    private String indexForSpaceshipFile = "\n";
-    private String indexForSpaceMapFileName = " ";
+    private String delimiterForCrewFileName = ";";
+    private String delimiterForSpaceshipFile = "\n";
+    private String delimiterForSpaceMapFileName = " ";
     PropertyReaderUtil propertyReaderUtil = PropertyReaderUtil.getInstance();
     Properties properties = propertyReaderUtil.getProperties();
 
@@ -40,7 +44,7 @@ public class ApplicationProperties {
     }
 
     public String getOutputRootDir() {
-        outputRootDir=properties.getProperty("outputRootDir");
+        outputRootDir = properties.getProperty("outputRootDir");
         return outputRootDir;
     }
 
@@ -50,6 +54,7 @@ public class ApplicationProperties {
     }
 
     public String getMissionsFileName() {
+        missionsFileName = properties.getProperty("missionsFileName");
         return missionsFileName;
     }
 
@@ -58,17 +63,19 @@ public class ApplicationProperties {
         return spaceshipsFileName;
     }
 
-    public String getSpaceMapFileName(){
-        spaceMapFileName=properties.getProperty("spaceMapFileName");
+    public String getSpaceMapFileName() {
+        spaceMapFileName = properties.getProperty("spaceMapFileName");
         return spaceMapFileName;
     }
 
     public Integer getFileRefreshRate() {
+        fileRefreshRate = Integer.parseInt(properties.getProperty("fileRefreshRate"));
         return fileRefreshRate;
     }
 
-    public String getDateTimeFormat() {
-        return dateTimeFormat;
+    public FormatStyle getDateTimeFormat() {
+        FormatStyle formatStyle =  FormatStyle.valueOf(properties.getProperty("dateTimeFormat"));
+        return formatStyle;
     }
 
     public String getRootDir() {
@@ -76,12 +83,14 @@ public class ApplicationProperties {
     }
 
     public String getIndexForCrewFileName() {
-        return indexForCrewFileName;
+        return delimiterForCrewFileName;
     }
 
     public String getIndexForSpaceshipFileName() {
-        return indexForSpaceshipFile;
+        return delimiterForSpaceshipFile;
     }
 
-    public String getIndexForSpaceMapFileName(){return indexForSpaceMapFileName;}
+    public String getIndexForSpaceMapFileName() {
+        return delimiterForSpaceMapFileName;
+    }
 }

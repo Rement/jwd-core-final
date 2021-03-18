@@ -15,6 +15,9 @@ public abstract class Criteria<T extends AbstractBaseEntity> {
         name = builder.name;
     }
 
+    protected Criteria() {
+    }
+
     public static class Builder<T extends AbstractBaseEntity> {
         private Long id = 0L;
         private String name;
@@ -40,5 +43,21 @@ public abstract class Criteria<T extends AbstractBaseEntity> {
         public T build() {
             return t;
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Criteria{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

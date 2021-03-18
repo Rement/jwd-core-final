@@ -1,15 +1,12 @@
 package com.epam.jwd.core_final.factory.impl;
 
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
-import com.epam.jwd.core_final.domain.Role;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.factory.EntityFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SpaceshipFactory implements EntityFactory<Spaceship> {
     private Spaceship spaceship = null;
+    private Spaceship enteredSpaceship;
     private SpaceshipCriteria.Builder spaceshipCriteria = SpaceshipCriteria.newBuilder();
     private static SpaceshipFactory instance;
 
@@ -25,14 +22,21 @@ public class SpaceshipFactory implements EntityFactory<Spaceship> {
 
     @Override
     public Spaceship create(Object... args) {
-
-        Map<Role, Short> crew=new HashMap<>();
-        crew.put(Role.COMMANDER, (short) 2);
+        for (Object s : args) {
+            try {
+                Class n = s.getClass();
+                if (n.equals(Spaceship.class)) {
+                    enteredSpaceship = (Spaceship) s;
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
         spaceship = spaceshipCriteria
-                .setCrew(crew)
-                .setFlightDistance(23L)
+                .setCrew(enteredSpaceship.getCrew())
+                .setFlightDistance(enteredSpaceship.getFlightDistance())
                 .setReadyForNextMission(true)
-                .setName("sssss")
+                .setName(enteredSpaceship.getName())
                 .build();
         return spaceship;
     }

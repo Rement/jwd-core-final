@@ -2,25 +2,29 @@ package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
 //<<<<<<< HEAD
-import com.epam.jwd.core_final.cashcreator.BaseEntityCollectionCreatorFromFile;
+import com.epam.jwd.core_final.cashcreator.BaseEntityCashCreatorFromDatabase;
 import com.epam.jwd.core_final.domain.*;
+import com.epam.jwd.core_final.logger.JwdLogger;
 import com.epam.jwd.core_final.reader.ReaderFromFile;
-import com.epam.jwd.core_final.cashcreator.impl.CrewMemberCollectionCreatorFromFile;
-import com.epam.jwd.core_final.cashcreator.impl.PlanetCollectionCreatorFromFile;
+import com.epam.jwd.core_final.cashcreator.impl.CrewMemberCashCreatorFromDatabase;
+import com.epam.jwd.core_final.cashcreator.impl.PlanetCashCreatorFromDatabase;
 import com.epam.jwd.core_final.reader.impl.ReaderFromFileImpl;
-import com.epam.jwd.core_final.cashcreator.impl.SpaceShipCollectionCreatorFromFile;
+import com.epam.jwd.core_final.cashcreator.impl.SpaceShipCashCreatorFromDatabase;
 //=======
 //>>>>>>> f660db45b7e6aa57495c014461025917330f9e1f
 import com.epam.jwd.core_final.exception.InvalidStateException;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // todo
 public class NassaContext implements ApplicationContext {
-    BaseEntityCollectionCreatorFromFile createFromFile = null;
+    BaseEntityCashCreatorFromDatabase createFromFile = null;
     ReaderFromFile readerFromFile = ReaderFromFileImpl.getInstance();
+    private static Logger logger = new JwdLogger(NassaContext.class.getName(), "slf4j");
     // no getters/setters for them
-    private Collection<AbstractBaseEntity> crewMembers = new ArrayList<>();
+    private Collection<CrewMember> crewMembers = new ArrayList<>();
     private Collection<Spaceship> spaceships = new ArrayList<>();
     private Collection<Planet> planetMap = new ArrayList<>();
 
@@ -30,28 +34,27 @@ public class NassaContext implements ApplicationContext {
         List<String> stringStreamFromFile = null;
         Collection<T> collection = null;
 
+        stringStreamFromFile = readerFromFile.readFromFile(tClass);
+
         if (tClass.equals(CrewMember.class)) {
-            stringStreamFromFile = readerFromFile.readFromFile(tClass);
-            createFromFile = CrewMemberCollectionCreatorFromFile.getInstance();
-            crewMembers = (Collection<AbstractBaseEntity>) createFromFile.createFromFile(stringStreamFromFile);
-            crewMembers.stream().forEach(System.out::println);
+            createFromFile = CrewMemberCashCreatorFromDatabase.getInstance();
+            crewMembers = (Collection<CrewMember>) createFromFile.createCashFromDatabase(stringStreamFromFile);
+            logger.log(Level.INFO, crewMembers.toString());
             collection = (Collection<T>) crewMembers;
         }
 
         if (tClass.equals(Spaceship.class)) {
-            stringStreamFromFile = readerFromFile.readFromFile(tClass);
-            createFromFile = SpaceShipCollectionCreatorFromFile.getInstance();
-            spaceships = (Collection<Spaceship>) createFromFile.createFromFile(stringStreamFromFile);
-            spaceships.stream().forEach(System.out::println);
+            createFromFile = SpaceShipCashCreatorFromDatabase.getInstance();
+            spaceships = (Collection<Spaceship>) createFromFile.createCashFromDatabase(stringStreamFromFile);
+            logger.log(Level.INFO, spaceships.toString());
             collection = (Collection<T>) spaceships;
         }
 
 
         if (tClass.equals(Planet.class)) {
-            stringStreamFromFile = readerFromFile.readFromFile(tClass);
-            createFromFile = PlanetCollectionCreatorFromFile.getInstance();
-            planetMap = (Collection<Planet>) createFromFile.createFromFile(stringStreamFromFile);
-            planetMap.stream().forEach(System.out::println);
+            createFromFile = PlanetCashCreatorFromDatabase.getInstance();
+            planetMap = (Collection<Planet>) createFromFile.createCashFromDatabase(stringStreamFromFile);
+            logger.log(Level.INFO, planetMap.toString());
             collection = (Collection<T>) planetMap;
         }
         return collection;
@@ -64,9 +67,17 @@ public class NassaContext implements ApplicationContext {
      */
     @Override
     public void init() throws InvalidStateException {
-        retrieveBaseEntityList(CrewMember.class);
-        retrieveBaseEntityList(Spaceship.class);
-        retrieveBaseEntityList(Planet.class);
-        //   throw new InvalidStateException();
+        crewMembers = retrieveBaseEntityList(CrewMember.class);
+        spaceships = retrieveBaseEntityList(Spaceship.class);
+        planetMap = retrieveBaseEntityList(Planet.class);
+        if (crewMembers.isEmpty()) {
+            throw new InvalidStateException(CrewMember.class.getName());
+        }
+        if (spaceships.isEmpty()) {
+            throw new InvalidStateException(Spaceship.class.getName());
+        }
+        if (planetMap.isEmpty()) {
+            throw new InvalidStateException(Planet.class.getName());
+        }
     }
 }
